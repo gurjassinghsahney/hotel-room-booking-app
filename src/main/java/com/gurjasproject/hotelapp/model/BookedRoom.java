@@ -8,17 +8,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 //code first approach
-@Entity
+@Entity // to create tables in mysql
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookedRoom {
     @Id //from jakarta to create a primary key for our db table
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //using identity to generate Id column values
     private Long bookingId;
 
-    @Column(name = "check_In")
+    @Column(name = "check_In")          // not necessary, just for time waste
     private LocalDate checkInDate;
 
     @Column(name = "check_Out")

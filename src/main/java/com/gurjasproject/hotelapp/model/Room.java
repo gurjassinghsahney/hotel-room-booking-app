@@ -30,11 +30,15 @@ public class Room {
     private Blob photo;     //One method is to store the images as binary data,
         // also known as BLOB (Binary Large OBject) data.
     @OneToMany(mappedBy = "room" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    //to keep track of booked rooms
     private List<BookedRoom> bookings;
 
 
     public Room() {
-        this.bookings = new ArrayList<>();
+        //initializing the BookedRoom arraylist to empty when creating the object.
+        this.bookings = new ArrayList<>();      //arraylist implements list interface, An
+        // @Override tag is not required for implementing an interface, as there is nothing in the original interface methods to be overridden.
     }
 
     public void addBooking(BookedRoom booking) {
