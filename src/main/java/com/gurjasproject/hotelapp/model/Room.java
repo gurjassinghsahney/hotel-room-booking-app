@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class Room {
-    @Id     //The @Idannotation is inherited from jakarta.persistence.Id,
+    @Id     //The @Id annotation is inherited from jakarta.persistence.Id,
     //indicating the member field below is the primary key of current entity.
     @GeneratedValue(strategy = GenerationType.IDENTITY)    //identity(1,1) type stuff
     private Long id;    //our primary key

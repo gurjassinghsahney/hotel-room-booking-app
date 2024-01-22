@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+//JPA/Hibernate uses the default constructor method to create a bean class using reflections.
+//thats why when we create a prameterised constructor we also need to create a noargsconstructor
 @NoArgsConstructor
 public class BookedRoom {
     @Id //from jakarta to create a primary key for our db table
