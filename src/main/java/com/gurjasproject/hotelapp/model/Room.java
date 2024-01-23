@@ -19,7 +19,7 @@ import java.util.List;
 public class Room {
     @Id     //The @Id annotation is inherited from jakarta.persistence.Id,
     //indicating the member field below is the primary key of current entity.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    //identity(1,1) type stuff
+    @GeneratedValue(strategy = GenerationType.AUTO)    //auto_increment from mysql db
     private Long id;    //our primary key
 
 
@@ -28,7 +28,7 @@ public class Room {
     private boolean isBooked = false;
     @Lob
     private Blob photo;     //One method is to store the images as binary data,
-        // also known as BLOB (Binary Large OBject) data.
+        // also known as BLOB (Binary Large Object) data.
     @OneToMany(mappedBy = "room" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     //to keep track of booked rooms
