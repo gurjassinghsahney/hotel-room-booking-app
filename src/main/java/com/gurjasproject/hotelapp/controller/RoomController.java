@@ -13,13 +13,26 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+
+// controller method is responsible for both returning data in an appropriate format
+// To achieve a better separation of concerns,
+// we have business in its service layer
+// This will not only simplify our code, but it will allow us to deploy and
+// scale the controller and the business logic separately.
 @RestController
+//The @ResponseBody annotation tells a controller
+// that the object returned is automatically serialized into JSON
+// and passed back into the HttpResponse object
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
 public class RoomController {
     private final IRoomService roomService;
+    //access modifier - private
+    //final keyword is used to make the variable permenent or constant, it cannot be changed anymore
+    //IRoomService is type
 
-    @PostMapping("/add/new-room")
+    //endpoint of the POST method is mapped to url: /add/new-room
+    @PostMapping("/add/new-room")   //maps the POST Request to this method
     public ResponseEntity<RoomResponse> addNewRoom(
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("roomType") String roomType,
