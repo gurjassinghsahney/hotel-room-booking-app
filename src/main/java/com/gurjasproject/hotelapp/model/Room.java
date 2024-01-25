@@ -18,27 +18,22 @@ import java.util.List;
 @AllArgsConstructor
 public class Room {
     @Id     //The @Id annotation is inherited from jakarta.persistence.Id,
-    //indicating the member field below is the primary key of current entity.
+            //indicating the member field below is the primary key of current entity.
     @GeneratedValue(strategy = GenerationType.AUTO)    //auto_increment from mysql db
+    //Making something private is simply saying that this variable should be retrieved and acted upon as an interface and not directly.
+    //It protects the structure of how that item is used.
     private Long id;    //our primary key
-
-
     private String roomType;
     private BigDecimal roomPrice;
     private boolean isBooked = false;
     @Lob
     private Blob photo;     //One method is to store the images as binary data,
-        // also known as BLOB (Binary Large Object) data.
+                            //also known as BLOB (Binary Large Object) data.
     @OneToMany(mappedBy = "room" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-
-    //to keep track of booked rooms
-    private List<BookedRoom> bookings;
-
+    private List<BookedRoom> bookings;  //to keep track of booked rooms
 
     public Room() {
-        //initializing the BookedRoom arraylist to empty when creating the object.
-        this.bookings = new ArrayList<>();      //arraylist implements list interface, An
-        // @Override tag is not required for implementing an interface, as there is nothing in the original interface methods to be overridden.
+        this.bookings = new ArrayList<>();  //arraylist implements list interface
     }
 
     public void addBooking(BookedRoom booking) {

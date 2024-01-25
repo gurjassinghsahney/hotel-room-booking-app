@@ -17,10 +17,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BookedRoom {
     @Id //from jakarta to create a primary key for our db table
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //using identity to generate Id column values
+    @GeneratedValue(strategy = GenerationType.AUTO) //using identity to generate Id column values
     private Long bookingId;
 
-    @Column(name = "check_In")          // not necessary, just for time waste
+    @Column(name = "check_In")     // renaming columns not necessary
     private LocalDate checkInDate;
 
     @Column(name = "check_Out")
