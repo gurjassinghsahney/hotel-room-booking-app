@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
+//Service class is for logic implementation by overriding the controller methods.
 @RequiredArgsConstructor
 public class RoomService implements IRoomService {
     private final RoomRepository roomRepository;

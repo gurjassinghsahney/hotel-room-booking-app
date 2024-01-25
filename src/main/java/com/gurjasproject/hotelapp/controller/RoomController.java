@@ -3,6 +3,7 @@ package com.gurjasproject.hotelapp.controller;
 import com.gurjasproject.hotelapp.model.Room;
 import com.gurjasproject.hotelapp.response.RoomResponse;
 import com.gurjasproject.hotelapp.service.IRoomService;
+import com.gurjasproject.hotelapp.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,32 +15,30 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-// controller method is responsible for both returning data in an appropriate format
-// To achieve a better separation of concerns,
-// we have business in its service layer
-// This will not only simplify our code, but it will allow us to deploy and
-// scale the controller and the business logic separately.
-@RestController
-//The @ResponseBody annotation tells a controller
-// that the object returned is automatically serialized into JSON
-// and passed back into the HttpResponse object
+// controller class calls the business logic from interface implementation
+//(USING SERVICES)
+
+@RestController // to identify our class as a controller
 @RequiredArgsConstructor
-@RequestMapping("/rooms")
+//@RequestMapping("/rooms")   //just for a prefix, no actual use
 public class RoomController {
-    private final IRoomService roomService;
-    //access modifier - private
-    //final keyword is used to make the variable permenent or constant, it cannot be changed anymore
-    //IRoomService is type
+    private final IRoomService roomService; //declaration of variable of custom type
+    private final ImageService imageService; //declaration of variable of custom type
 
     //endpoint of the POST method is mapped to url: /add/new-room
-    @PostMapping("/add/new-room")   //maps the POST Request to this method
+    @PostMapping("/add/new-room")   //@PostMapping is a composed annotation, @RequestMapping(method = RequestMethod.POST).
     public ResponseEntity<RoomResponse> addNewRoom(
+            @RequestParam("file") MultipartFile multipartFile,
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("roomType") String roomType,
             @RequestParam("roomPrice") BigDecimal roomPrice) throws SQLException, IOException {
+
         Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);
-        RoomResponse response = new RoomResponse(savedRoom.getId(), savedRoom.getRoomType(),
-                savedRoom.getRoomPrice());
+        RoomResponse response = new RoomResponse(
+                savedRoom.getId(),
+                savedRoom.getRoomType(),
+                savedRoom.getRoomPrice()
+        );
         return ResponseEntity.ok(response);
     }
 
@@ -48,7 +47,18 @@ public class RoomController {
     public List<String> getRoomTypes(){
         return roomService.getAllRoomTypes();
     }
-}
+
+    @GetMapping("/hello_world")
+    public String hello(){
+        return "Hello World";
+    }
+
+    @PostMapping("/firebase")
+    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+        return imageService.upload(multipartFile);
+    }
+
+    }
 
 
 
