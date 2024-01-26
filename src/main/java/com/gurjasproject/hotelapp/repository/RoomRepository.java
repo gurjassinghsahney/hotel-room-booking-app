@@ -9,9 +9,7 @@ import java.util.List;
 //jparepository is just an interface with CRUD methods to make life easier
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-
+    // a SELECT query to get roomType column values from database
     @Query("SELECT DISTINCT r.roomType FROM Room r") //room entity is represented by r
-    // a select query to get room_type column values from database
-
-    List<String> findDistinctRoomTypes();   //this is a method with a return type of List<String>
+    List<String> findDistinctRoomTypes();   //this is a method suing the query with a return type of List<String>
 }

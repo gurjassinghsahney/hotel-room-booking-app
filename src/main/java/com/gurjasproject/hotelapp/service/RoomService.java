@@ -3,7 +3,6 @@ package com.gurjasproject.hotelapp.service;
 import com.gurjasproject.hotelapp.model.Room;
 import com.gurjasproject.hotelapp.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-//Service class is for logic implementation by overriding the controller methods.
+//Service class is for logic implementation by overriding the interface empty methods.
 @RequiredArgsConstructor
 public class RoomService implements IRoomService {
     private final RoomRepository roomRepository;
@@ -31,12 +30,12 @@ public class RoomService implements IRoomService {
             Blob photoBlob = new SerialBlob(photoBytes);
             room.setPhoto(photoBlob);
         }
-        return roomRepository.save(room);
+        return roomRepository.save(room);   //This is a method from JpaRepository to add values to our MYSQL database
     }
 
     @Override
     public List<String> getAllRoomTypes() {
-        return roomRepository.findDistinctRoomTypes();
+        return roomRepository.findDistinctRoomTypes();  //for using JpaRepository queries
     }
 
 }

@@ -8,8 +8,14 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+//The reason we use interfaces is for single responsibility principle
 public interface IRoomService {
-    Room addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice) throws IOException, SQLException;
 
-    List<String> getAllRoomTypes();
+    Room addNewRoom(                    //method to add new room
+            MultipartFile photo,
+            String roomType,
+            BigDecimal roomPrice) throws IOException, SQLException;
+
+    List<String> getAllRoomTypes();     //method to get all room types added till now
+
 }

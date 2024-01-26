@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController // to identify our class as a controller
 @RequiredArgsConstructor
-//@RequestMapping("/rooms")   //just for a prefix, no actual use
+@RequestMapping("/rooms")   //just for a prefix, no actual use
 public class RoomController {
     private final IRoomService roomService;  //declaration of variable of custom type to be initialized later
     private final ImageService imageService; //declaration of variable of custom type to be initialized later
@@ -28,21 +28,18 @@ public class RoomController {
     //endpoint of the POST method is mapped to url: /add/new-room
     @PostMapping("/add/new-room")   //@PostMapping is a composed annotation, @RequestMapping(method = RequestMethod.POST).
     public ResponseEntity<RoomResponse> addNewRoom(     //using ResponseEntity<T> is considered best practice when returning responses.
-            @RequestParam("file") MultipartFile multipartFile,
+            //@RequestParam("file") MultipartFile multipartFile,
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("roomType") String roomType,
             @RequestParam("roomPrice") BigDecimal roomPrice)
-            throws SQLException, IOException
-    {
+            throws SQLException, IOException {
 
-        imageService.upload(multipartFile);
-        Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);
-        RoomResponse response = new RoomResponse(
-                savedRoom.getId(),
-                savedRoom.getRoomType(),
-                savedRoom.getRoomPrice()
+        //imageService.upload(multipartFile);       //firebase upload
+        Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice); //Room object creation (logic in service class)
+        RoomResponse response = new RoomResponse(                      //RoomResponse object creation
+                savedRoom.getId(), savedRoom.getRoomType(), savedRoom.getRoomPrice()
         );
-        return ResponseEntity.ok(response); //if <RoomResponse> is found then return OK STATUS and return response object
+        return ResponseEntity.ok(response); //return OK STATUS and return response object
     }
 
     @GetMapping("/room/types")
